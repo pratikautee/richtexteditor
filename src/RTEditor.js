@@ -24,7 +24,7 @@ export default function RTEditor(props) {
       localSrc: URL.createObjectURL(file),
     };
     uploadedImages.push(imageObject);
-    setState({ uploadedImages: uploadedImages });
+    setState({ ...state, uploadedImages: uploadedImages });
     return new Promise((resolve, reject) => {
       resolve({ data: { link: imageObject.localSrc } });
     });
