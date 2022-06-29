@@ -14,7 +14,21 @@ export default function RTEditor(props) {
   );
   let [state, setState] = useState({
     editorState: EditorState.createWithContent(contentState),
+    uploadedImages: [],
   });
+
+  function uploadImageCallBack(file) {
+    let uploadedImages = state.uploadedImages;
+    const imageObject = {
+      file: file,
+      localSrc: URL.createObjectURL(file),
+    };
+    uploadedImages.push(imageObject);
+    setState({ uploadedImages: uploadedImages });
+    return new Promise((resolve, reject) => {
+      resolve({ data: { link: imageObject.localSrc } });
+    });
+  }
 
   const getHtml = (currEditor = state.editorState) => {
     return draftToHtml(convertToRaw(currEditor.getCurrentContent()));
@@ -63,10 +77,25 @@ export default function RTEditor(props) {
       <button onClick={printContent}>Print Content</button>
       <Editor
         editorState={state.editorState}
-        wrapperStyle={{ display: "inline-block" }}
         onEditorStateChange={(editorState) => {
           localStorage.setItem("currHtml", getHtml(editorState));
           setState({ editorState: editorState });
+        }}
+        toolbarClassName="rdw-storybook-toolbar"
+        wrapperClassName="rdw-storybook-wrapper"
+        editorClassName="rdw-storybook-editor"
+        toolbar={{
+          // inline: { inDropdown: true },
+          // list: { inDropdown: true },
+          // textAlign: { inDropdown: true },
+          // link: { inDropdown: true },
+          // history: { inDropdown: true },
+          image: {
+            uploadCallback: uploadImageCallBack,
+            previewImage: true,
+          },
+          inputAccept:
+            "application/pdf,text/plain,application/vnd.openxmlformatsofficedocument.wordprocessingml.document,application/msword,application/vnd.ms-excel",
         }}
       />
     </>
