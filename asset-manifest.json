@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/richtexteditor/static/css/main.c79b6ba7.css",
+    "main.js": "/richtexteditor/static/js/main.71095c38.js",
+    "index.html": "/richtexteditor/index.html",
+    "main.c79b6ba7.css.map": "/richtexteditor/static/css/main.c79b6ba7.css.map",
+    "main.71095c38.js.map": "/richtexteditor/static/js/main.71095c38.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.c79b6ba7.css",
+    "static/js/main.71095c38.js"
+  ]
+}
