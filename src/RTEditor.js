@@ -12,19 +12,19 @@ export default function RTEditor(props) {
   const contentState = ContentState.createFromBlockArray(
     contentBlock.contentBlocks
   );
+  let [uploadedImages, setUploadedImages] = useState([])
   let [state, setState] = useState({
-    editorState: EditorState.createWithContent(contentState),
-    uploadedImages: [],
+    editorState: EditorState.createWithContent(contentState)
   });
 
   function uploadImageCallBack(file) {
-    let uploadedImages = state.uploadedImages;
+    let uploaded = uploadedImages;
     const imageObject = {
       file: file,
       localSrc: URL.createObjectURL(file),
     };
-    uploadedImages.push(imageObject);
-    setState({ ...state, uploadedImages: uploadedImages });
+    uploaded.push(imageObject);
+    setUploadedImages(uploaded);
     return new Promise((resolve, reject) => {
       resolve({ data: { link: imageObject.localSrc } });
     });
